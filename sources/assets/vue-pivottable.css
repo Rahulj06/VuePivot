@@ -1,0 +1,813 @@
+.pvtUi {
+    color: #333
+}
+
+.graySmallText {
+    font-size: 11px;
+    color: #A6A9B6;
+    line-height: 1.3;
+}
+
+#first {
+    order: -1;
+}
+
+table.pvtTable {
+    font-size: 8pt;
+    text-align: left;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.pvtTable tbody tr th,
+table.pvtTable thead tr th {
+    border: 1px solid #d4d7da;
+    background: #e9edf2;
+    font-size: 8pt;
+    padding: 5px;
+}
+
+table.pvtTable .pvtColLabel {
+    text-align: right;
+    white-space: nowrap;
+    padding: 5px;
+    font-weight: unset;
+}
+
+table.pvtTable .pvtRowLabel {
+    text-align: left;
+    white-space: nowrap;
+    padding: 5px;
+    font-weight: unset;
+}
+
+table.pvtTable .pvtTotalLabel {
+    text-align: right;
+    white-space: nowrap;
+    padding: 5px;
+}
+
+table.pvtTable tbody tr td {
+    color: #434761;
+    background-color: #FFF;
+    border: 1px solid #CDCDCD;
+    vertical-align: top;
+    text-align: right;
+    cursor: pointer;
+}
+
+.pvtHeading {
+    padding: 0 6px 0;
+    font-weight: 700;
+}
+
+.pvtGrandTotal,
+.pvtTotal {
+    font-weight: 700;
+    /*font-size: 13px;*/
+    padding: 5px 5px 5px 5px;
+}
+
+.pvtVal {
+    text-align: center;
+    white-space: nowrap
+}
+
+.pvtColOrder,
+.pvtRowOrder {
+    cursor: pointer;
+    width: 15px;
+    margin-left: 5px;
+    display: none;
+}
+
+.pvtAttrDropdown {
+    display: none;
+}
+
+.pvtAggregator {
+    margin-bottom: 5px;
+    display: none;
+}
+
+.pvtAxisContainer {
+    border: 1px solid #D2D5D8;
+    background: #FFFFFF;
+    padding: 15px;
+}
+
+.pivotTableControls {
+    background-color: #FFFFFF;
+}
+
+.pivots_button {
+    margin: 10px auto;
+    float: right;
+}
+
+.rowsAndCols {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.rowsAndCols .pvtAxisContainer {
+    background-color: rgba(233, 237, 242, 0.5);
+    min-height: 61px;
+}
+
+.pvtVal {
+    padding: 5px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.pvtVals {
+    border: 1px solid gray;
+    background: #EEE;
+    padding: 5px;
+    min-height: 70px
+}
+
+.pvtAxisContainer li {
+    padding: 8px 6px;
+    list-style-type: none;
+    cursor: move
+}
+
+.pvtAxisContainer li.pvtPlaceholder {
+    -webkit-border-radius: 5px;
+    padding: 3px 15px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px dashed #aaa
+}
+
+.pvtAxisContainer li span.pvtAttr {
+    -webkit-text-size-adjust: 100%;
+    background: #FFFFFF;
+    border: 1px dashed #a8aaab;
+    padding: 7px 6px;
+    white-space: nowrap;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px
+}
+
+.pvtTriangle {
+    cursor: pointer;
+    color: #000000;
+    font-size: 12px;
+    padding-left: 8px;
+    font-weight: 800;
+}
+
+.pvtHorizList li {
+    display: inline
+}
+
+.pvtVertList {
+    vertical-align: top
+}
+
+.pvtFilteredAttribute .pvtAttr .pvtTriangle {
+    color: #2099ff;
+}
+
+.pvtFilterBox {
+    z-index: 10;
+    min-width: 210px;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(116, 133, 143, 0.30);
+    box-shadow: 0 0 13px 0 rgba(30, 46, 65, 0.20);
+    position: absolute;
+    text-align: center
+}
+
+.pvtFilterBox .pvtFilterSlider .ui-state-default {
+    border-radius: 50%;
+}
+
+.pvtFilterBox .pvtFilterSlider .ui-state-active {
+    border: 1px solid #c5c5c5;
+    background: #f6f6f6;
+}
+
+.pvtFilterBox h4 {
+    margin: 15px 0px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.pvtFilterBox p {
+    margin: 10px auto;
+}
+
+.pvtFilterBox label {
+    font-weight: 400
+}
+
+.pvtFilterBox input[type=checkbox] {
+    margin-right: 10px;
+    margin-left: 10px;
+    display: none;
+}
+
+.pvtFilterBox input[type=text] {
+    width: 200px
+}
+
+.pvtFilterBox .count {
+    color: gray;
+    font-weight: 400;
+    margin-left: 3px
+}
+
+.pvtCheckContainer input[type=checkbox] {
+    display: none;
+}
+
+.pvtCheckContainer {
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow-y: scroll;
+    width: 100%;
+    max-height: 250px;
+    border-top: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3
+}
+
+.pvtCheckContainer p {
+    margin: 5px
+}
+
+.pvtRendererArea {
+    /*width: 100%;*/
+    padding: 20px;
+    background-color: #FFFFFF;
+    border: 1px solid #d4d7da;
+}
+
+.selectOrClear {
+    font-size: 12px;
+    color: #085CE7;
+    background: unset;
+    border: unset;
+    padding-left: 0;
+}
+
+.pivots_button .selectOrClear {
+    padding-right: 7px;
+}
+
+.pvtBottomBorder {
+    border: 1px solid #CDCDCD;
+}
+
+.pvtCols {
+    text-align: left;
+    vertical-align: top;
+    flex-basis: 50%;
+    border-top: unset;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    border-left: none;
+}
+
+.pvtRows {
+    text-align: left;
+    vertical-align: top;
+    flex-basis: 50%;
+    border-top: unset;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.viewports {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-left: 1px solid #d4d7da;
+    border-right: 1px solid #d4d7da;
+}
+
+.pvtUnused {
+    min-height: 61px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.btn {
+    display: inline-block;
+    *display: inline;
+    padding: 8px 15px;
+    margin-bottom: 0;
+    *margin-left: .3em;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background: linear-gradient(to top, #fefefe, #f3f3f3) #f3f3f3;
+    *zoom: 1;
+    border-radius: 4px;
+    color: #434761;
+}
+
+.btn.active {
+    background-image: none;
+    outline: 0;
+    cursor: default !important;
+    background: linear-gradient(to top, #fefefe, #f3f3f3) #f3f3f3;
+    border-color: #ccc;
+    box-shadow: inset 0px 1px 5px rgb(22 37 50 / 30%);
+    color: #434761;
+}
+
+.pivots-btn {
+    height: 17px;
+}
+
+#allViews.btn-group>.btn+.btn {
+    margin-left: 0;
+}
+
+.pvtFilterSlider {
+    padding: 15px 25px 15px 25px;
+}
+
+#slider-range .ui-slider-range.ui-widget-header {
+    background: #085CE7;
+}
+
+#pivot-table {
+    position: relative;
+    padding-top: 15px;
+    border-top: #d2d5d8 1px solid;
+}
+
+.td-pop-container {
+    width: 213px;
+    background-color: #383D54;
+    color: #FFFFFF;
+    position: absolute;
+    z-index: 2;
+    border-radius: 4px;
+}
+
+.td-pop-container .down-sign {
+    position: absolute;
+    margin-top: -12px;
+    left: calc(50% - 5px);
+    color: #282C42;
+    font-size: 27px;
+}
+
+.pivot-td-pop {
+    cursor: auto;
+    display: flex;
+    font-size: 11px;
+    justify-content: space-between;
+    padding: 5px 7px 0px 12px;
+}
+
+.analyze-redirect {
+    width: 90%;
+    background-color: #282C42;
+    padding: 10px 10px;
+    color: #FFFFFF;
+    ;
+}
+
+.analyze-border {
+    border: solid 1px #878a99;
+    /* border color change for hover*/
+    width: 100%;
+    padding: 6px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.analyze-border:hover {
+    border: solid 1px #FFFFFF;
+    /* on hover border color change*/
+}
+
+.funnelmargin {
+    margin-right: 5px;
+    margin-left: 3px;
+}
+
+.header.pivot-td-pop {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 16px;
+    padding-top: 12px;
+    padding-bottom: 10px;
+}
+
+.closetdpopup {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.agg-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.revenue-container {
+    flex: 8;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.pivot-props .controlDropdown .controlDropdown-Header .clear-all-filter {
+    color: #0093dd;
+}
+
+.pivot-props .controlDropdown {
+    position: absolute;
+    top: 46px;
+    left: 0;
+    background: white;
+    z-index: 10;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px 0 rgba(30, 46, 65, 0.25);
+    min-width: 210px;
+    cursor: initial;
+}
+
+.pivot-props .controlDropdown .controlDropdown-Caret {
+    position: absolute;
+    font-size: 26px;
+    top: -17px;
+    left: 10px;
+    color: #fff;
+    text-shadow: 0 -1px 1px rgba(139, 139, 139, 0.25);
+}
+
+.pivot-props .controlDropdown .controlDropdown-Header {
+    padding-bottom: 15px;
+    border-bottom: #d2d5d8 1px solid;
+}
+
+.pivot-props .controlDropdown .groupLabel {
+    padding-bottom: 12px;
+    margin-top: 12px;
+}
+
+.pivot-props .controlDropdown .controlDropdown-Body>li {
+    margin-bottom: 8px;
+}
+
+
+/*overflow changes for pivot pop-up pivot-td-pop*/
+
+.pivot-td-pop div {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 12px;
+}
+
+
+/*pivot-popup-close hover color change*/
+
+.pivot-popup-close {
+    color: #878a99;
+}
+
+.pivot-popup-close:hover {
+    color: #fff;
+}
+
+.pivot-props .cancel {
+    font-size: 12px;
+}
+
+
+/*pvtCheckContainer_padding */
+
+.pvtCheckContainer_padding {
+    padding: 12px 0px 12px 5px;
+}
+
+.gradient-rectangle {
+    height: 10px;
+    margin-right: 10px;
+    width: 60px;
+    float: right;
+    background: linear-gradient(to right, #17BB6A 0%, #88CA5A 13.58%, #D2D56C 26.77%, #FDD562 51.68%, #FDB162 83.09%, #FB6263 100%);
+}
+
+.pvtFilteredAttribute {
+    font-style: italic;
+}
+
+.sortable-chosen .pvtFilterBox {
+    display: none !important;
+}
+
+.pvtFilterTextClear {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none !important;
+}
+
+
+/* .pvtDragHandle {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    font-size: 18px;
+    cursor: move;
+    color: #a2b1c6;
+} */
+
+.pvtFilterBox input {
+    border: 1px solid #c8d4e3;
+    border-radius: 5px;
+    color: #506784;
+    padding: 0 3px;
+    font-size: 14px;
+}
+
+.pvtFilterBox input:focus {
+    border-color: #119dff;
+    outline: none;
+}
+
+.pvtFilterBox {
+    z-index: 100;
+    border: 1px solid #506784;
+    max-width: 600px;
+    min-width: 210px;
+    background-color: #fff;
+    position: absolute;
+    padding: 6px;
+    user-select: none;
+    min-height: 100px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+}
+
+.pvtFilterBox input[type='text'] {
+    display: block;
+    width: 100%;
+    color: #2a3f5f;
+    margin-bottom: 5px;
+    padding: 6px;
+    /* border-radius: 4px; */
+}
+
+.pvtFilterBox {
+    padding: 3px;
+}
+
+.pvtCheckContainer {
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow-y: scroll;
+    width: 100%;
+    max-height: 30vh;
+    border-top: 1px solid #dfe8f3;
+}
+
+.pvtCheckContainer p {
+    margin: 0;
+    margin-bottom: 1px;
+    padding: 3px;
+    cursor: default;
+}
+
+.pvtCheckContainer p.selected {
+    background: #ebf0f8;
+    min-width: 100%;
+    width: max-content;
+}
+
+.pvtCheckContainer p:hover .pvtOnly {
+    display: block;
+}
+
+.pvtCheckContainer p:hover .pvtOnlySpacer {
+    display: none;
+}
+
+* {
+    box-sizing: border-box
+}
+
+.pvtUi select {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+}
+
+.pvtUi td {
+    overflow-x: auto;
+}
+
+.pvtUi td.pvtOutput {
+    padding: 6px;
+    vertical-align: top;
+    border: 1px solid #a2b1c6;
+    overflow-x: auto;
+}
+
+.pvtRenderers {
+    border: 1px solid #a2b1c6;
+    user-select: none;
+}
+
+.pvtDropdown {
+    border: 1px solid #a2b1c6;
+    align-items: center;
+    display: block;
+    background-color: transparent;
+    background-image: none;
+    border-radius: 0px;
+    padding: 0px 0px 0px 3px;
+    height: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    outline: none;
+    line-height: 1 !important;
+    margin: 3px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+}
+
+.pvtRenderers .pvtDropdown {
+    padding: 0px 0px 0px 12px;
+    border: none;
+    width: 100%;
+    margin: 0px;
+}
+
+.pvtDropdown:last-child {
+    margin-bottom: 0px;
+}
+
+.pvtVals {
+    white-space: nowrap;
+    vertical-align: top;
+    padding-bottom: 12px;
+}
+
+.pvtFilteredAttribute {
+    font-style: italic;
+}
+
+.sortable-chosen .pvtFilterBox {
+    display: none !important;
+}
+
+.pvtFilterTextClear {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: none !important;
+}
+
+
+/* .pvtDragHandle {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    font-size: 18px;
+    cursor: move;
+    color: #a2b1c6;
+} */
+
+.pvtButton {
+    display: inline-block;
+    color: #506784;
+    border-radius: 5px;
+    padding: 3px 6px;
+    background: #fff;
+    border: 1px solid;
+    border-color: #c8d4e3;
+    font-size: 14px;
+    margin: 3px 3px 6px 0px;
+    transition: 0.34s all cubic-bezier(0.19, 1, 0.22, 1);
+    text-decoration: none !important;
+}
+
+.pvtButton:hover {
+    background: #e2e8f0;
+    border-color: #a2b1c6;
+}
+
+.pvtButton:active {
+    background: #d1dae6;
+}
+
+.pvtFilterBox input {
+    border: 1px solid #c8d4e3;
+    border-radius: 5px;
+    color: #506784;
+    padding: 0 3px;
+    font-size: 14px;
+}
+
+.pvtFilterBox input:focus {
+    border-color: #119dff;
+    outline: none;
+}
+
+.pvtFilterBox {
+    z-index: 100;
+    border: 1px solid #506784;
+    max-width: 600px;
+    min-width: 210px;
+    background-color: #fff;
+    position: absolute;
+    padding: 6px;
+    user-select: none;
+    min-height: 100px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+}
+
+.pvtFilterBox input[type='text'] {
+    display: block;
+    width: 100%;
+    color: #2a3f5f;
+    margin-bottom: 5px;
+    padding: 6px;
+    /* border-radius: 4px; */
+}
+
+.pvtFilterBox {
+    padding: 3px;
+}
+
+.pvtCheckContainer {
+    text-align: left;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow-y: scroll;
+    width: 100%;
+    max-height: 30vh;
+    border-top: 1px solid #dfe8f3;
+}
+
+.pvtCheckContainer p {
+    margin: 0;
+    margin-bottom: 1px;
+    padding: 3px;
+    cursor: default;
+}
+
+.pvtCheckContainer p.selected {
+    background: #ebf0f8;
+    min-width: 100%;
+    width: max-content;
+}
+
+.pvtOnly {
+    display: none;
+    width: 35px;
+    float: right;
+    font-size: 12px;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.pvtOnlySpacer {
+    display: block;
+    width: 35px;
+    float: right;
+}
+
+.pvtCheckContainer p:hover .pvtOnly {
+    display: block;
+}
+
+.pvtCheckContainer p:hover .pvtOnlySpacer {
+    display: none;
+}
