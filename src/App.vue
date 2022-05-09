@@ -126,7 +126,7 @@ export default {
       sortonlyFromDragDrop: [], // ['Party Size'],
       pivotColumns: ['Meal', 'Payer Smoker', 'Day of Week', 'Payer Gender', 'Party Size'],
       loading: false,
-      aggregatorName: 'Sum',
+      aggregatorName: 'Count',
       rendererName: 'Table',
       locale: 'en'
     }
@@ -190,7 +190,6 @@ export default {
       }
     },
     aggregators () {
-      const usFmt = PivotUtilities.numberFormat()
       const usFmtInt = PivotUtilities.numberFormat({ digitsAfterDecimal: 0 })
       const usFmtPct = PivotUtilities.numberFormat({
         digitsAfterDecimal: 1,
@@ -200,22 +199,6 @@ export default {
 
       return ((tpl) => ({
         'Count': tpl.count(usFmtInt),
-        'Count Unique Values': tpl.countUnique(usFmtInt),
-        'List Unique Values': tpl.listUnique(', '),
-        Sum: tpl.sum(usFmt),
-        'Integer Sum': tpl.sum(usFmtInt),
-        'Average': tpl.average(usFmt),
-        'Median': tpl.median(usFmt),
-        'Sample Variance': tpl.var(1, usFmt),
-        'Sample Standard Deviation': tpl.stdev(1, usFmt),
-        'Minimum': tpl.min(usFmt),
-        'Maximum': tpl.max(usFmt),
-        'First': tpl.first(usFmt),
-        'Last': tpl.last(usFmt),
-        'Sum over Sum': tpl.sumOverSum(usFmt),
-        'Sum as Fraction of Total': tpl.fractionOf(tpl.sum(), 'total', usFmtPct),
-        'Sum as Fraction of Rows': tpl.fractionOf(tpl.sum(), 'row', usFmtPct),
-        'Sum as Fraction of Columns': tpl.fractionOf(tpl.sum(), 'col', usFmtPct),
         'Count as Fraction of Total': tpl.fractionOf(tpl.count(), 'total', usFmtPct),
         'Count as Fraction of Rows': tpl.fractionOf(tpl.count(), 'row', usFmtPct),
         'Count as Fraction of Columns': tpl.fractionOf(tpl.count(), 'col', usFmtPct)
@@ -227,19 +210,13 @@ export default {
       const PlotlyRenderer = Renderer.PlotlyRenderer
       return (() => ({
         'Table': TableRenderer.Table,
-        'Table Heatmap': TableRenderer['Table Heatmap'],
-        'Table Col Heatmap': TableRenderer['Table Col Heatmap'],
-        'Table Row Heatmap': TableRenderer['Table Row Heatmap'],
-        'Export Table TSV': TableRenderer['Export Table TSV'],
-        'Grouped Column Chart': PlotlyRenderer['Grouped Column Chart'],
-        'Stacked Column Chart': PlotlyRenderer['Stacked Column Chart'],
-        'Grouped Bar Chart': PlotlyRenderer['Grouped Bar Chart'],
-        'Stacked Bar Chart': PlotlyRenderer['Stacked Bar Chart'],
+        'Heatmap': TableRenderer['Table Heatmap'],
+        'Row Heatmap': TableRenderer['Table Row Heatmap'],
+        'Col Heatmap': TableRenderer['Table Col Heatmap'],
+        'Stacked Bar Chart': PlotlyRenderer['Stacked Column Chart'],
+        'Bar Chart': PlotlyRenderer['Grouped Column Chart'],
         'Line Chart': PlotlyRenderer['Line Chart'],
-        'Dot Chart': PlotlyRenderer['Dot Chart'],
-        'Area Chart': PlotlyRenderer['Area Chart'],
-        'Scatter Chart': PlotlyRenderer['Scatter Chart'],
-        'Multiple Pie Chart': PlotlyRenderer['Multiple Pie Chart']
+        'Area Chart': PlotlyRenderer['Area Chart']
       })
       )()
     }

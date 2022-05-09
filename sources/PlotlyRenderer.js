@@ -163,13 +163,8 @@ function makeScatterRenderer(opts = {}) {
 }
 
 export default {
-    'Grouped Column Chart': makeRenderer({ name: 'vue-grouped-column-chart' }, { type: 'bar' }, { barmode: 'group' }),
-    'Stacked Column Chart': makeRenderer({ name: 'vue-stacked-column-chart' }, { type: 'bar' }, { barmode: 'relative' }),
-    'Grouped Bar Chart': makeRenderer({ name: 'groupd-bar-chart' }, { type: 'bar', orientation: 'h' }, { barmode: 'group' }, true),
-    'Stacked Bar Chart': makeRenderer({ name: 'vue-stacked-bar-chart' }, { type: 'bar', orientation: 'h' }, { barmode: 'relative' }, true),
+    'Stacked Bar Chart': makeRenderer({ name: 'vue-stacked-column-chart' }, { type: 'bar' }, { barmode: 'relative' }),
+    'Bar Chart': makeRenderer({ name: 'vue-grouped-column-chart' }, { type: 'bar' }, { barmode: 'group' }),
     'Line Chart': makeRenderer({ name: 'vue-line-chart' }),
-    'Dot Chart': makeRenderer({ name: 'vue-dot-chart' }, { mode: 'markers' }, {}, true),
     'Area Chart': makeRenderer({ name: 'vue-area-chart' }, { stackgroup: 1 }),
-    'Scatter Chart': makeScatterRenderer({ name: 'vue-scatter-chart' }),
-    'Multiple Pie Chart': makeRenderer({ name: 'vue-multiple-pie-chart' }, { type: 'pie', scalegroup: 1, hoverinfo: 'label+value', textinfo: 'none' }, {}, true)
 }

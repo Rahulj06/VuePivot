@@ -4,51 +4,6 @@ export default {
         prop: 'value',
         event: 'input'
     },
-
-    /*    render(h) {
-        return h('select', {
-            staticClass: ['btn-group'],
-            domProps: {
-                value: this.value
-            },
-            on: {
-                change: this.handleChange
-            },
-            attrs: {
-                id: ['allViews']
-            },
-            style: {
-                'background': '#FFFFFF',
-                'padding': '10px',
-                'display': 'flex',
-                'flex - direction': 'row',
-                'float': 'right'
-            }
-        }, [
-            this.values.map(r => {
-                const text = r
-                var str = text;
-                str = str.replace(/\s+/g, '_').toLowerCase();
-                str = str.replace('table_', '');
-                str = str.replace('_chart', '');
-                return h('option', {
-                    attrs: {
-                        value: r,
-                        title: r
-                    },
-                    class: [
-                        r === this.value ? 'btn active' : 'btn'
-                    ]
-                }, [h('img', {
-                    attrs: {
-                        src: 'https://sk1-dashboard-staging-11.dashboard.clevertap.com/images/svg/pivots/' + 'table' + '.svg'
-                    },
-                    class: ['tooltip pivots-btn']
-                }, [h('span', { class: ['tooltiptext'] }, [text])])])
-            })
-        ])
-    }*/
-
     created() {
         this.$emit('input', this.values[0])
     },
@@ -78,8 +33,12 @@ export default {
                 const text = r
                 var str = text;
                 str = str.replace(/\s+/g, '_').toLowerCase();
-                str = str.replace('table_', '');
                 str = str.replace('_chart', '');
+                str = str.replace('line', 'trend');
+                str = str.replace('stacked_bar', 'stack');
+                if (str === 'heatmap') {
+                    str = 'table_heatmap'
+                }
                 return h('button', {
                     attrs: {
                         value: r,
@@ -96,7 +55,7 @@ export default {
                     ]
                 }, [h('img', {
                     attrs: {
-                        src: 'https://sk1-dashboard-staging-11.dashboard.clevertap.com/images/svg/pivots/' + 'table' + '.svg'
+                        src: 'https://sk1-dashboard-staging-11.dashboard.clevertap.com/images/svg/pivots/' + str + '.svg'
                     },
                     class: ['pivots-btn']
                 })])
