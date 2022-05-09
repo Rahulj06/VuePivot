@@ -3,6 +3,8 @@
         <vue-pivottable-ui
           v-model="config"
           :data="pivotData"
+          :locale="locale"
+          :locales="locales"
           :rendererName="rendererName"
           :aggregatorName="aggregatorName"
           :tableColorScaleGenerator="colorScaleGenerator"
@@ -124,7 +126,7 @@ export default {
       sortonlyFromDragDrop: [], // ['Party Size'],
       pivotColumns: ['Meal', 'Payer Smoker', 'Day of Week', 'Payer Gender', 'Party Size'],
       loading: false,
-      aggregatorName: 'Count',
+      aggregatorName: 'Sum',
       rendererName: 'Table',
       locale: 'en'
     }
@@ -151,7 +153,44 @@ export default {
         'Day of Week': PivotUtilities.sortAs(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
       }
     },
+    locales () {
+      return {
+        en: {
+          aggregators: this.aggregators,
+          localeStrings: {
+            renderError: 'An error occurred rendering the PivotTable results.',
+            computeError: 'An error occurred computing the PivotTable results.',
+            uiRenderError: 'An error occurred rendering the PivotTable UI.',
+            selectAll: 'Select All',
+            selectNone: 'Select None',
+            tooMany: '(too many to list)',
+            filterResults: 'Filter values',
+            totals: 'Totals',
+            only: 'Only',
+            vs: 'vs',
+            by: 'by'
+          }
+        },
+        ko: {
+          aggregators: this.aggregators,
+          localeStrings: {
+            renderError: '피벗 테이블 결과를 렌더링하는 동안 오류가 발생 했습니다.',
+            computeError: '피벗 테이블 결과를 계산하는 동안 오류가 발생 했습니다.',
+            uiRenderError: '피벗 테이블 UI를 렌더링하는 동안 오류가 발생 했습니다.',
+            selectAll: '모두 선택',
+            selectNone: '선택 안함',
+            tooMany: '표시 할 값이 너무 많습니다.',
+            filterResults: '값 필터링',
+            totals: '합계',
+            only: '단독',
+            vs: 'vs',
+            by: 'by'
+          }
+        }
+      }
+    },
     aggregators () {
+      const usFmt = PivotUtilities.numberFormat()
       const usFmtInt = PivotUtilities.numberFormat({ digitsAfterDecimal: 0 })
       const usFmtPct = PivotUtilities.numberFormat({
         digitsAfterDecimal: 1,
@@ -161,6 +200,22 @@ export default {
 
       return ((tpl) => ({
         'Count': tpl.count(usFmtInt),
+        'Count Unique Values': tpl.countUnique(usFmtInt),
+        'List Unique Values': tpl.listUnique(', '),
+        Sum: tpl.sum(usFmt),
+        'Integer Sum': tpl.sum(usFmtInt),
+        'Average': tpl.average(usFmt),
+        'Median': tpl.median(usFmt),
+        'Sample Variance': tpl.var(1, usFmt),
+        'Sample Standard Deviation': tpl.stdev(1, usFmt),
+        'Minimum': tpl.min(usFmt),
+        'Maximum': tpl.max(usFmt),
+        'First': tpl.first(usFmt),
+        'Last': tpl.last(usFmt),
+        'Sum over Sum': tpl.sumOverSum(usFmt),
+        'Sum as Fraction of Total': tpl.fractionOf(tpl.sum(), 'total', usFmtPct),
+        'Sum as Fraction of Rows': tpl.fractionOf(tpl.sum(), 'row', usFmtPct),
+        'Sum as Fraction of Columns': tpl.fractionOf(tpl.sum(), 'col', usFmtPct),
         'Count as Fraction of Total': tpl.fractionOf(tpl.count(), 'total', usFmtPct),
         'Count as Fraction of Rows': tpl.fractionOf(tpl.count(), 'row', usFmtPct),
         'Count as Fraction of Columns': tpl.fractionOf(tpl.count(), 'col', usFmtPct)
@@ -175,10 +230,16 @@ export default {
         'Table Heatmap': TableRenderer['Table Heatmap'],
         'Table Col Heatmap': TableRenderer['Table Col Heatmap'],
         'Table Row Heatmap': TableRenderer['Table Row Heatmap'],
+        'Export Table TSV': TableRenderer['Export Table TSV'],
         'Grouped Column Chart': PlotlyRenderer['Grouped Column Chart'],
         'Stacked Column Chart': PlotlyRenderer['Stacked Column Chart'],
+        'Grouped Bar Chart': PlotlyRenderer['Grouped Bar Chart'],
+        'Stacked Bar Chart': PlotlyRenderer['Stacked Bar Chart'],
         'Line Chart': PlotlyRenderer['Line Chart'],
-        'Area Chart': PlotlyRenderer['Area Chart']
+        'Dot Chart': PlotlyRenderer['Dot Chart'],
+        'Area Chart': PlotlyRenderer['Area Chart'],
+        'Scatter Chart': PlotlyRenderer['Scatter Chart'],
+        'Multiple Pie Chart': PlotlyRenderer['Multiple Pie Chart']
       })
       )()
     }
