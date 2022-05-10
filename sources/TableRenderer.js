@@ -26,25 +26,29 @@ function hueColorScaleGenerator(values, hues) {
     min = Math.min.apply(Math, values);
     max = Math.max.apply(Math, values);
     return function(x) {
-        var i = (1.0 * (x - min) / (max - min));
+        if (x !== null) {
+            var i = (1.0 * (x - min) / (max - min));
 
-        var rr = hues[0];
-        var gg = hues[1];
-        var bb = hues[2];
+            var rr = hues[0];
+            var gg = hues[1];
+            var bb = hues[2];
 
-        var ni = (rr.length - 1) * i;
-        var indexLower = parseInt(ni);
-        var indexUpper = Math.min(indexLower + 1, rr.length - 1);
+            var ni = (rr.length - 1) * i;
+            var indexLower = parseInt(ni);
+            var indexUpper = Math.min(indexLower + 1, rr.length - 1);
 
-        var w2 = ni - indexLower;
-        var w1 = 1 - w2;
+            var w2 = ni - indexLower;
+            var w1 = 1 - w2;
 
-        var r = parseInt(w1 * rr[indexLower] + w2 * rr[indexUpper]);
-        var g = parseInt(w1 * gg[indexLower] + w2 * gg[indexUpper]);
-        var b = parseInt(w1 * bb[indexLower] + w2 * bb[indexUpper]);
+            var r = parseInt(w1 * rr[indexLower] + w2 * rr[indexUpper]);
+            var g = parseInt(w1 * gg[indexLower] + w2 * gg[indexUpper]);
+            var b = parseInt(w1 * bb[indexLower] + w2 * bb[indexUpper]);
 
 
-        return { 'background-color': 'rgb(' + r + ',' + g + ',' + b + ')' };
+            return { 'background-color': 'rgb(' + r + ',' + g + ',' + b + ')' };
+        } else {
+            return { 'background-color': 'rgb(' + 255 + ',' + 255 + ',' + 255 + ')' };
+        }
     };
 };
 
