@@ -92,7 +92,6 @@ import tips from './tips'
 // import tips2 from './tips2'
 import { VuePivottableUi, PivotUtilities, Renderer } from '../sources'
 import '../sources/assets/vue-pivottable.css'
-import { scaleLinear } from 'd3-scale'
 // const HeatmapRenderer = Renderer.TableRenderer['Table Heatmap']
 // const TableRenderer = Renderer.TableRenderer['Table']
 
@@ -222,12 +221,29 @@ export default {
     }
   },
   methods: {
-    colorScaleGenerator (values) {
-      const scale = scaleLinear()
-        .domain([0, Math.max.apply(null, values)])
-        .range(['#fff', '#77f'])
-      return x => {
-        return { 'background-color': scale(x) }
+    colorScaleGenerator (values, hues) {
+      var max, min
+      min = Math.min.apply(Math, values)
+      max = Math.max.apply(Math, values)
+      return function (x) {
+        var i = (1.0 * (x - min) / (max - min))
+
+        var rr = hues[0]
+        var gg = hues[1]
+        var bb = hues[2]
+
+        var ni = (rr.length - 1) * i
+        var indexLower = parseInt(ni)
+        var indexUpper = Math.min(indexLower + 1, rr.length - 1)
+
+        var w2 = ni - indexLower
+        var w1 = 1 - w2
+
+        var r = parseInt(w1 * rr[indexLower] + w2 * rr[indexUpper])
+        var g = parseInt(w1 * gg[indexLower] + w2 * gg[indexUpper])
+        var b = parseInt(w1 * bb[indexLower] + w2 * bb[indexUpper])
+
+        return { 'background-color': 'rgb(' + r + ',' + g + ',' + b + ')' }
       }
     },
     noFilterbox () {

@@ -1,15 +1,52 @@
 import { PivotData } from './helper/utils'
 import defaultProps from './helper/common'
 
-function redColorScaleGenerator(values) {
-    const min = Math.min.apply(Math, values)
-    const max = Math.max.apply(Math, values)
-    return x => {
-        // eslint-disable-next-line no-magic-numbers
-        const nonRed = 255 - Math.round(255 * (x - min) / (max - min))
-        return { backgroundColor: `rgb(255,${nonRed},${nonRed})` }
-    }
-}
+var hues_brown = [];
+hues_brown.push([47, 89, 133, 165, 193, 215, 223, 232, 242, 251, 253, 253, 253, 253, 253, 253, 252, 252, 251]);
+hues_brown.push([190, 196, 201, 207, 211, 214, 213, 214, 214, 213, 209, 203, 197, 191, 185, 179, 158, 134, 109]);
+hues_brown.push([103, 97, 91, 97, 104, 107, 105, 103, 101, 98, 98, 98, 98, 98, 98, 98, 98, 98, 98]);
+
+var hues_gray = [];
+hues_gray.push([250, 247, 244, 241, 238, 235, 232, 229, 226]);
+hues_gray.push([250, 247, 244, 241, 238, 235, 232, 229, 226]);
+hues_gray.push([250, 247, 244, 241, 238, 235, 232, 229, 226]);
+
+var hues_blue = [];
+hues_blue.push([247, 222, 198, 158, 107, 66, 33]);
+hues_blue.push([251, 235, 219, 202, 174, 146, 113]);
+hues_blue.push([255, 247, 239, 225, 214, 198, 181]);
+
+var hues_green = [];
+hues_green.push([247, 229, 199, 161, 116, 65, 35]);
+hues_green.push([252, 245, 233, 217, 196, 171, 139]);
+hues_green.push([245, 224, 192, 155, 118, 93, 69]);
+
+function hueColorScaleGenerator(values, hues) {
+    var max, min;
+    min = Math.min.apply(Math, values);
+    max = Math.max.apply(Math, values);
+    return function(x) {
+        var i = (1.0 * (x - min) / (max - min));
+
+        var rr = hues[0];
+        var gg = hues[1];
+        var bb = hues[2];
+
+        var ni = (rr.length - 1) * i;
+        var indexLower = parseInt(ni);
+        var indexUpper = Math.min(indexLower + 1, rr.length - 1);
+
+        var w2 = ni - indexLower;
+        var w1 = 1 - w2;
+
+        var r = parseInt(w1 * rr[indexLower] + w2 * rr[indexUpper]);
+        var g = parseInt(w1 * gg[indexLower] + w2 * gg[indexUpper]);
+        var b = parseInt(w1 * bb[indexLower] + w2 * bb[indexUpper]);
+
+
+        return { 'background-color': 'rgb(' + r + ',' + g + ',' + b + ')' };
+    };
+};
 
 function makeRenderer(opts = {}) {
     const TableRenderer = {
@@ -21,7 +58,7 @@ function makeRenderer(opts = {}) {
             heatmapMode: String,
             tableColorScaleGenerator: {
                 type: Function,
-                default: redColorScaleGenerator
+                default: hueColorScaleGenerator
             },
             tableOptions: {
                 type: Object,
@@ -107,11 +144,11 @@ function makeRenderer(opts = {}) {
                 const rowTotalValues = colKeys.map(x =>
                     pivotData.getAggregator([], x).value()
                 )
-                rowTotalColors = colorScaleGenerator(rowTotalValues)
+                rowTotalColors = colorScaleGenerator(rowTotalValues, hues_gray)
                 const colTotalValues = rowKeys.map(x =>
                     pivotData.getAggregator(x, []).value()
                 )
-                colTotalColors = colorScaleGenerator(colTotalValues)
+                colTotalColors = colorScaleGenerator(colTotalValues, hues_gray)
 
                 if (opts.heatmapMode === 'full') {
                     const allValues = []
@@ -120,7 +157,7 @@ function makeRenderer(opts = {}) {
                             allValues.push(pivotData.getAggregator(r, c).value())
                         )
                     )
-                    const colorScale = colorScaleGenerator(allValues)
+                    const colorScale = colorScaleGenerator(allValues, hues_brown)
                     valueCellColors = (r, c, v) => colorScale(v)
                 } else if (opts.heatmapMode === 'row') {
                     const rowColorScales = {}
@@ -128,7 +165,7 @@ function makeRenderer(opts = {}) {
                         const rowValues = colKeys.map(x =>
                             pivotData.getAggregator(r, x).value()
                         )
-                        rowColorScales[r] = colorScaleGenerator(rowValues)
+                        rowColorScales[r] = colorScaleGenerator(rowValues, hues_brown)
                     })
                     valueCellColors = (r, c, v) => rowColorScales[r](v)
                 } else if (opts.heatmapMode === 'col') {
@@ -137,7 +174,7 @@ function makeRenderer(opts = {}) {
                         const colValues = rowKeys.map(x =>
                             pivotData.getAggregator(x, c).value()
                         )
-                        colColorScales[c] = colorScaleGenerator(colValues)
+                        colColorScales[c] = colorScaleGenerator(colValues, hues_brown)
                     })
                     valueCellColors = (r, c, v) => colColorScales[c](v)
                 }
@@ -310,53 +347,6 @@ function makeRenderer(opts = {}) {
         }
     }
     return TableRenderer
-}
-
-const TSVExportRenderer = {
-    name: 'tsv-export-renderers',
-    mixins: [defaultProps],
-    render(h) {
-        const pivotData = new PivotData(this.$props)
-        const rowKeys = pivotData.getRowKeys()
-        const colKeys = pivotData.getColKeys()
-        if (rowKeys.length === 0) {
-            rowKeys.push([])
-        }
-        if (colKeys.length === 0) {
-            colKeys.push([])
-        }
-        const headerRow = pivotData.props.rows.map(r => r)
-        if (colKeys.length === 1 && colKeys[0].length === 0) {
-            headerRow.push(this.aggregatorName)
-        } else {
-            colKeys.map(c => headerRow.push(c.join('-')))
-        }
-
-        const result = rowKeys.map(r => {
-            const row = r.map(x => x)
-            colKeys.map(c => {
-                const v = pivotData.getAggregator(r, c).value()
-                row.push(v || '')
-            })
-            return row
-        })
-        result.unshift(headerRow)
-        return h('textarea', {
-            style: {
-                width: `100%`,
-                height: `${window.innerHeight / 2}px`
-            },
-            attrs: {
-                readOnly: true
-            },
-            domProps: {
-                value: result.map(r => r.join('\t')).join('\n')
-            }
-        })
-    },
-    renderError(h, error) {
-        return this.renderError(h)
-    }
 }
 
 export default {

@@ -503,7 +503,7 @@ export default {
                 }
             },
             `pvtAxisContainer pvtUnused pvtHorizList`,
-            h, ['Pivots', 'Drag and drop pivot values to rows and columns']
+            h, ['Pivots', '(Drag and drop pivot values to rows and columns)']
         )
         const colAttrsCell = this.makeDnDCell(
             this.colAttrs,
@@ -522,7 +522,7 @@ export default {
                 }
             },
             'pvtAxisContainer pvtHorizList pvtCols',
-            h, ['Table columns', 'Drag and drop pivot values to here']
+            h, ['Table columns', '(Drag and drop pivot values to here)']
         )
         const rowAttrsCell = this.makeDnDCell(
             this.rowAttrs,
@@ -541,7 +541,7 @@ export default {
                 }
             },
             'pvtAxisContainer pvtVertList pvtRows',
-            h, ['Table rows', 'Drag and drop pivot values to here']
+            h, ['Table rows', '(Drag and drop pivot values to here)']
         )
 
         const props = Object.assign({}, this.$props, {
