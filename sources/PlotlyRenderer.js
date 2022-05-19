@@ -1,6 +1,6 @@
 import { PivotData } from './helper/utils'
 import defaultProps from './helper/common'
-import { Chart } from 'highcharts-vue'
+import { Plotly } from 'vue-plotly'
 
 function makeRenderer(opts = {}, traceOptions = {}, layoutOptions = {}, transpose = false) {
     var rotateAngle = 0
@@ -129,11 +129,14 @@ function makeRenderer(opts = {}, traceOptions = {}, layoutOptions = {}, transpos
                 }
             }
 
-            return h(Chart, {
-                chartOptions: {
-                    series: [{
-                        data: [1, 2, 3]
-                    }]
+            return h(Plotly, {
+                props: {
+                    data,
+                    layout: Object.assign({},
+                        layout,
+                        layoutOptions,
+                        this.$props.plotlyOptions
+                    )
                 }
             })
         }
