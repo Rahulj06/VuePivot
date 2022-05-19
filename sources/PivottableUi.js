@@ -458,7 +458,7 @@ export default {
         },
         outputCell(props, isPlotlyRenderer, h) {
             return h('div', {
-                staticClass: ['containerOut'],
+                staticClass: ['containerOut border'],
                 style: {
                     'width': '100%',
                     'opacity': 1,
@@ -576,6 +576,7 @@ export default {
         }, [
             colGroupSlot,
             h('div', {
+                staticClass: ['border'],
                 on: {
                     'click': this.closeFilterBox
                 }

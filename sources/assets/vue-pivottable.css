@@ -12,6 +12,10 @@
     order: -1;
 }
 
+.border {
+    border: 1px solid #CDCDCD;
+}
+
 table.pvtTable {
     font-size: 8pt;
     text-align: left;
