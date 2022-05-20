@@ -1,6 +1,6 @@
 import { PivotData } from './helper/utils'
 import defaultProps from './helper/common'
-import { Plotly } from 'vue-plotly'
+import { Chart } from 'highcharts-vue'
 
 function makeRenderer(opts = {}, traceOptions = {}, layoutOptions = {}, transpose = false) {
     var rotateAngle = 0
@@ -48,16 +48,14 @@ function makeRenderer(opts = {}, traceOptions = {}, layoutOptions = {}, transpos
                     trace.labels = labels.length > 1 ? labels : [fullAggName]
                 } else {
                     trace.x = transpose ? values : labels
-                    trace.y = transpose ? labels : values
+                    trace.data = transpose ? labels : values
                     for (var i = 0; i < (trace.x).length; i++) {
                         if ((trace.x[i]).length > 25 || (trace.x).length > 10)
                             rotateAngle = -45
                     }
-                    trace.marker = {
-                        color: Array((trace.x).length).fill(['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce',
-                            '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'
-                        ]).flat().splice(0, (trace.x).length)
-                    }
+                    /*trace.marker = {
+                        color: Array((trace.x).length).fill(['rgb(81,108,245)', 'rgb(244,186,89)', '#ffc933', '#ef6f35', '#b7e803', '#3ad8ed', '#e37cf1', '#a64cfc', '#5656f4', '#a1b6cb']).flat().splice(0, (trace.x).length)
+                    }*/
                 }
                 return Object.assign(trace, traceOptions)
             })
@@ -85,7 +83,127 @@ function makeRenderer(opts = {}, traceOptions = {}, layoutOptions = {}, transpos
 
                 hovermode: 'closest'
             }
+            const options = {
+                exporting: {
+                    buttons: {
+                        enabled: true,
+                        contextButton: {
+                            symbolFill: '#434761',
+                            symbolStroke: '#434761',
+                            menuItems: [{
+                                    text: 'Print chart',
+                                    onclick: function() {
+                                        this.print();
+                                    }
+                                },
+                                {
+                                    text: 'Download PNG Image',
+                                    onclick: function() {
+                                        this.exportChartLocal({ type: 'image/png', filename: 'PivotTable' });
+                                    }
+                                },
+                                {
+                                    text: 'Download JPEG Image',
+                                    onclick: function() {
+                                        this.exportChartLocal({ type: 'image/jpeg', filename: 'PivotTable' });
+                                    }
+                                },
+                                {
+                                    text: 'Download PDF Document',
+                                    onclick: function() {
+                                        this.exportChartLocal({ type: 'application/pdf', filename: 'PivotTable' });
+                                    }
+                                },
+                                {
+                                    text: 'Download SVG Image',
+                                    onclick: function() {
+                                        this.exportChartLocal({ type: 'image/svg+xml', filename: 'PivotTable' });
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    backgroundColor: "#1d2f41",
+                    style: { color: "#ffffff" },
+                    borderWidth: 1,
+                    borderColor: '#1d2f41',
+                    useHTML: true,
+                    shared: true,
+                    shadow: false
+                },
+                title: {
+                    text: ''
+                },
+                legend: {
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    enabled: true,
+                    itemMarginTop: 8
+                },
+                xAxis: {
+                    title: {
+                        text: hAxisTitle,
+                        style: {
+                            font: {
+                                family: 'proxima-nova, Arial, sans-serif;',
+                                size: 12,
+                                color: '#666666',
+                                fill: '#666666'
+                            }
+                        }
+                    },
+                    categories: data[0].x,
+                    tickWidth: 1
+                },
+                yAxis: {
+                    title: '',
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                series: data
+            }
+            options.exporting = {
+                enabled: true
+            }
 
+            if (traceOptions.type === 'area') {
+                options.plotOptions = {
+                    area: {
+                        stacking: 'normal',
+                        marker: {
+                            symbol: 'circle'
+                        }
+                    }
+                }
+            }
+
+            if (layoutOptions.stacked) {
+                options.plotOptions = {
+                    column: {
+                        stacking: 'normal',
+                        borderWidth: 0
+                    }
+                }
+            }
+
+            if (traceOptions.type === 'line') {
+                options.plotOptions = {
+                    series: {
+                        borderWidth: 0,
+                        marker: {
+                            symbol: 'circle'
+                        }
+                    }
+                }
+            }
             if (traceOptions.type === 'pie') {
                 const columns = Math.ceil(Math.sqrt(data.length))
                 const rows = Math.ceil(data.length / columns)
@@ -129,14 +247,9 @@ function makeRenderer(opts = {}, traceOptions = {}, layoutOptions = {}, transpos
                 }
             }
 
-            return h(Plotly, {
+            return h(Chart, {
                 props: {
-                    data,
-                    layout: Object.assign({},
-                        layout,
-                        layoutOptions,
-                        this.$props.plotlyOptions
-                    )
+                    options
                 }
             })
         }
@@ -145,8 +258,8 @@ function makeRenderer(opts = {}, traceOptions = {}, layoutOptions = {}, transpos
 }
 
 export default {
-    'Stacked Bar Chart': makeRenderer({ name: 'vue-stacked-column-chart' }, { type: 'bar' }, { barmode: 'relative' }),
-    'Bar Chart': makeRenderer({ name: 'vue-grouped-column-chart' }, { type: 'bar' }, { barmode: 'group' }),
-    'Line Chart': makeRenderer({ name: 'vue-line-chart' }),
-    'Area Chart': makeRenderer({ name: 'vue-area-chart' }, { stackgroup: 1 }),
+    'Stacked Bar Chart': makeRenderer({ name: 'vue-stacked-column-chart' }, { type: 'column' }, { stacked: true }),
+    'Bar Chart': makeRenderer({ name: 'vue-grouped-column-chart' }, { type: 'column' }, { barmode: 'group' }),
+    'Line Chart': makeRenderer({ name: 'vue-line-chart' }, { type: 'line' }),
+    'Area Chart': makeRenderer({ name: 'vue-area-chart' }, { type: 'area', stacked: true })
 }
